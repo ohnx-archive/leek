@@ -4,14 +4,19 @@ import java.awt.Rectangle;
 
 import ca.masonx.leek.core.render.Renderable;
 
+/**
+ * GameElement abstract class.
+ * 
+ * Everything that is inside a level extends this class.
+ */
 public abstract class GameElement implements Renderable {
 	/**
-	 * Position of the Game Element
+	 * Position of the game element
 	 */
 	int px, py, pz;
 	
 	/**
-	 * Length and width of the Game Element (used for collision detection)
+	 * Height and width of the Game Element (used for collision detection)
 	 */
 	int height, width;
 	
@@ -22,7 +27,7 @@ public abstract class GameElement implements Renderable {
 	
 	/**
 	 * Entity constructor
-	 * @param parent	The parent of this entity (Which level is the entity in?)
+	 * @param parent	The parent of this entity (Which level is the element in?)
 	 */
 	public GameElement(Level parent) {
 		this.parent = parent;

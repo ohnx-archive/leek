@@ -5,7 +5,19 @@ import java.lang.reflect.Method;
 
 import ca.masonx.leek.core.annotations.LeekEventHandler;
 
+/**
+ * Event Handler Registerer.
+ * 
+ * Uses Reflection to parse the annotations and checks for the @LeekEventHandler annotation.
+ */
 public class EventHandlerRegister {
+	/**
+	 * Register the event handlers for a given class.
+	 * 
+	 * Sample usage (assuming called from a class that implements Listener): registerEventHandlers(this).
+	 * 
+	 * @param in	A class that implements the Listener interface.
+	 */
 	public static void registerEventHandlers(Listener in) {
 		Class<?> cours = in.getClass();
 		Method[] methods = cours.getMethods();
@@ -17,13 +29,16 @@ public class EventHandlerRegister {
 				switch (handler.handles()) {
 				case COLLISION:
 					break;
-				case KEYBOARD:
+				case KEYDOWN:
+					break;
+				case KEYUP:
 					break;
 				case MOUSECLICK:
 					break;
 				case MOUSEMOVE:
 					break;
-				case NONE:
+				default:
+					System.err.println("Invalid handling type for: " + method.getName());
 					break;
 				}
 			}

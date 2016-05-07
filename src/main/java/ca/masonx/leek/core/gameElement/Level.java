@@ -12,14 +12,21 @@ import ca.masonx.leek.core.render.Renderable;
 
 /**
  * Class for a level - most functionality is already implemented.
- * Extending this class is not necessary.
+ * 
+ * Extending this class is not necessary unless more functionality is needed.
  */
 public class Level {
 	/**
 	 * Level background image
 	 */
 	protected final BufferedImage levelBackground;
+	/**
+	 * Entity list - all entities that exist in the level are in this list.
+	 */
 	protected List<Entity> entityList;
+	/**
+	 * Block list - all walls/blocks that exist in the level are in this list.
+	 */
 	protected List<Block> blockList;
 	
 	/**
@@ -30,7 +37,6 @@ public class Level {
 		levelBackground = background;
 		entityList = new ArrayList<Entity>();
 		blockList = new ArrayList<Block>();
-		
 	}
 	
 	/**
@@ -57,8 +63,10 @@ public class Level {
 		/* sort the rendered images by z index */
 		Collections.sort(renderedImages);
 		
+		/* draw the level's background */
 		g.drawImage(levelBackground, 0, 0, null);
 		
+		/* draw all of the images */
 		for (PositionedImage p : renderedImages) {
 			g.drawImage(p.i, p.px, p.py, null);
 		}
