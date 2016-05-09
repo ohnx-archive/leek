@@ -9,6 +9,11 @@ import ca.masonx.leek.core.physics.Updateable;
  */
 public abstract class MovableEntity extends Entity implements Updateable {
 	/**
+	 * Make this serializable
+	 */
+	private static final long serialVersionUID = 3414146955998883971L;
+
+	/**
 	 * MovableEntity constructor
 	 * @param parent	The parent of this entity (Which level is the entity in?)
 	 */

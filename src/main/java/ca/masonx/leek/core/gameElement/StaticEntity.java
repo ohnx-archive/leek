@@ -7,6 +7,11 @@ package ca.masonx.leek.core.gameElement;
  */
 public abstract class StaticEntity extends Entity {
 	/**
+	 * Make this serializable
+	 */
+	private static final long serialVersionUID = -1240254990808026555L;
+
+	/**
 	 * StaticEntity constructor
 	 * @param parent	The parent of this entity (Which level is the entity in?)
 	 */

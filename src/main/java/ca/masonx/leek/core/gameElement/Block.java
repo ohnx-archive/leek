@@ -7,6 +7,11 @@ package ca.masonx.leek.core.gameElement;
  */
 public abstract class Block extends GameElement {
 	/**
+	 * Make this serializable
+	 */
+	private static final long serialVersionUID = 8982104834579269130L;
+
+	/**
 	 * Block constructor
 	 * @param parent	The parent of this block (Which level is the entity in?)
 	 */

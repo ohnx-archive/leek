@@ -3,7 +3,9 @@ package ca.masonx.leek.core.events;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 
+import ca.masonx.leek.Leek;
 import ca.masonx.leek.core.annotations.LeekEventHandler;
+import ca.masonx.leek.core.gameElement.Level;
 
 /**
  * Event Handler Registerer.
@@ -16,9 +18,10 @@ public class EventHandlerRegister {
 	 * 
 	 * Sample usage (assuming called from a class that implements Listener): registerEventHandlers(this).
 	 * 
+	 * @param l		The level that the event handler is going to be registered under
 	 * @param in	A class that implements the Listener interface.
 	 */
-	public static void registerEventHandlers(Listener in) {
+	public static void registerEventHandlers(Level l, Listener in) {
 		Class<?> cours = in.getClass();
 		Method[] methods = cours.getMethods();
 		for (Method method : methods) {
@@ -28,17 +31,17 @@ public class EventHandlerRegister {
 				LeekEventHandler handler = (LeekEventHandler) annotation;
 				switch (handler.handles()) {
 				case COLLISION:
-					break;
 				case KEYDOWN:
-					break;
 				case KEYUP:
-					break;
 				case MOUSECLICK:
-					break;
 				case MOUSEMOVE:
-					break;
+					if (l.em.addEventHandler(method, handler.handles())) {
+						
+					} else {
+						System.err.println("Invalid event handler " + method.getName() + " in " + in.getClass().getName());
+					}
 				default:
-					System.err.println("Invalid handling type for: " + method.getName());
+					System.err.println("Invalid handling type for: " + method.getName() + " in " + in.getClass().getName());
 					break;
 				}
 			}

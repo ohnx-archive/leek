@@ -9,6 +9,11 @@ import ca.masonx.leek.core.render.PositionedImage;
  */
 public class InvisibleBlock extends Block {
 	/**
+	 * Make this serializable
+	 */
+	private static final long serialVersionUID = 7109398440275459360L;
+
+	/**
 	 * InvisibleBlock constructor
 	 * @param parent	The parent of this entity (Which level is the entity in?)
 	 */

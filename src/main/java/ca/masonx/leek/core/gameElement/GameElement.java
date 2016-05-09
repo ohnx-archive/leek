@@ -9,7 +9,12 @@ import ca.masonx.leek.core.render.Renderable;
  * 
  * Everything that is inside a level extends this class.
  */
-public abstract class GameElement implements Renderable {
+public abstract class GameElement implements Renderable, java.io.Serializable {
+	/**
+	 * Make this serializable
+	 */
+	private static final long serialVersionUID = -1525879088524198224L;
+
 	/**
 	 * Position of the game element
 	 */
