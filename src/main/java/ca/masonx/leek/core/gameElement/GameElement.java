@@ -28,7 +28,7 @@ public abstract class GameElement implements Renderable, java.io.Serializable {
 	/**
 	 * Parent level
 	 */
-	private final Level parent;
+	private final transient Level parent;
 	
 	/**
 	 * Entity constructor

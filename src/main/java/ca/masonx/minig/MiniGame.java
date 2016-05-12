@@ -6,6 +6,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import ca.masonx.leek.Leek;
+import ca.masonx.leek.core.gameElement.Entity;
 import ca.masonx.leek.core.gameElement.Level;
 
 public class MiniGame {
@@ -23,12 +24,15 @@ public class MiniGame {
 	}
 	
 	protected void start() {
+		engine.init("Gem Collector", 640, 480);
 		try {
 			Level l = new Level("Level 1", ImageIO.read(new File("background.png")));
+			l.add((Entity)p);
+			engine.changeLevel(l);
+			engine.enterMainLoop();
 		} catch (IOException e) {
 			e.printStackTrace();
 			return;
 		}
-		engine.init("My Game", 640, 400);
 	}
 }

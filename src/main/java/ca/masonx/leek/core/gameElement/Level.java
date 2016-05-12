@@ -28,10 +28,14 @@ public class Level implements Serializable {
 	private static final long serialVersionUID = 4977710030815731043L;
 	
 	protected final String levelName;
-	/**
-	 * Level background image
-	 */
+	/* Level background image */
 	protected final BufferedImage levelBackground;
+	
+	/* Level dimensions */
+	public final int height;
+	public final int width;
+	
+	/* Element lists */
 	protected List<Entity> entityList;
 	protected List<Block> blockList;
 	public final transient EventMaster em;
@@ -44,6 +48,8 @@ public class Level implements Serializable {
 	public Level(String name, BufferedImage background) {
 		levelName = name;
 		levelBackground = background;
+		height = levelBackground.getHeight();
+		width = levelBackground.getWidth();
 		entityList = new ArrayList<Entity>();
 		blockList = new ArrayList<Block>();
 		em = new EventMaster();
@@ -84,12 +90,28 @@ public class Level implements Serializable {
 	 * Update the level
 	 * @param time the amount of time that has passed since the level last got updated
 	 */
-	public void update(int time) {
+	public void update(double time) {
 		for (Entity e : entityList) {
 			if (e instanceof Updateable) {
 				((Updateable) e).update(time);
 			}
 		}
+	}
+	
+	/**
+	 * Add an entity to the level.
+	 * @param e	The entity to add.
+	 */
+	public void add(Entity e) {
+		entityList.add(e);
+	}
+	
+	/**
+	 * Add an block to the level.
+	 * @param b	The block to add.
+	 */
+	public void add(Block b) {
+		blockList.add(b);
 	}
 	
 	/**

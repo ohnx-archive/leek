@@ -9,5 +9,5 @@ public interface Updateable {
 	 * Update everything.
 	 * @param time	The amount of time that has passed since the last update
 	 */
-	public void update(int time);
+	public void update(double time);
 }
