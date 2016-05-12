@@ -21,7 +21,7 @@ import ca.masonx.leek.core.render.Renderable;
  * Class for a level - most functionality is already implemented.
  * Extending this class is not necessary.
  */
-public class Level implements Serializable{
+public class Level implements Serializable {
 	/**
 	 * Make this serializable
 	 */
@@ -82,7 +82,7 @@ public class Level implements Serializable{
 	
 	/**
 	 * Update the level
-	 * @param time the amount of time that has passed since the level last got updatedz
+	 * @param time the amount of time that has passed since the level last got updated
 	 */
 	public void update(int time) {
 		for (Entity e : entityList) {
@@ -99,6 +99,7 @@ public class Level implements Serializable{
 	 * @return							The un-serialized level
 	 * @throws IOException				Exception thrown from un-serializing
 	 * @throws ClassNotFoundException	Exception thrown from un-serializing
+	 * @throws ClassCastException		Exception thrown from un-serializing
 	 */
 	public static Level loadLevel(String in) throws IOException, ClassNotFoundException, ClassCastException {
 		byte b[] = in.getBytes(); 
