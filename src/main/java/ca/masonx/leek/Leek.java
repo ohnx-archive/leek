@@ -43,6 +43,7 @@ public class Leek extends LeekEvent {
 		return mainLoop(30);
 	}
 	
+	@SuppressWarnings("unused")
 	protected boolean mainLoop(int targetFPS) {
 		double dt = 1.0 / targetFPS * 1000.0;
 		double currentTime = System.currentTimeMillis();
@@ -63,7 +64,8 @@ public class Leek extends LeekEvent {
 			}
 			
 		    currLevel.render(g);
-		    break;
+		    if (false)
+		    	break;
 		}
 		return false;
 	}

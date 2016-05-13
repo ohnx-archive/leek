@@ -18,17 +18,17 @@ public abstract class GameElement implements Renderable, java.io.Serializable {
 	/**
 	 * Position of the game element
 	 */
-	int px, py, pz;
+	protected int px, py, pz;
 	
 	/**
 	 * Height and width of the Game Element (used for collision detection)
 	 */
-	int height, width;
+	protected int height, width;
 	
 	/**
 	 * Parent level
 	 */
-	private final transient Level parent;
+	protected final transient Level parent;
 	
 	/**
 	 * Entity constructor
@@ -50,7 +50,7 @@ public abstract class GameElement implements Renderable, java.io.Serializable {
 	 * Get the parent of an entity
 	 * @return	Parent level
 	 */
-	protected Level getParent() {
+	public Level getParent() {
 		return parent;
 	}
 }
