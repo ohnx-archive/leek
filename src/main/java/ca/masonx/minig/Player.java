@@ -2,6 +2,11 @@ package ca.masonx.minig;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import ca.masonx.leek.core.annotations.LeekEventHandler;
 import ca.masonx.leek.core.events.CollisionEvent;
@@ -16,8 +21,9 @@ public class Player extends MovableEntity implements KeyListener {
 	 */
 	private static final long serialVersionUID = 66916044368560750L;
 	
-	
 	private boolean[] keysPressed = {false, false, false, false};
+	private BufferedImage[] images = new BufferedImage[4];
+	private int currPos = 0;
 	
 	@LeekEventHandler(handles = HandlerType.COLLISION)
 	public void collided(CollisionEvent e) {
@@ -26,16 +32,34 @@ public class Player extends MovableEntity implements KeyListener {
 	
 	public Player(Level l) {
 		super(l);
+		try {
+			images[0] = ImageIO.read(new File("resources/img/player0.png"));
+			images[1] = ImageIO.read(new File("resources/img/player1.png"));
+			images[2] = ImageIO.read(new File("resources/img/player2.png"));
+			images[3] = ImageIO.read(new File("resources/img/player3.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void update(double time) {
-		// TODO Auto-generated method stub
-		
+		if (keysPressed[0]) {
+			currPos = 0;
+			py -= time;
+		} else if (keysPressed[1]) {
+			currPos = 1;
+			px += time;
+		} else if (keysPressed[2]) {
+			currPos = 2;
+			py += time;
+		} else if (keysPressed[3]) {
+			currPos = 3;
+			px -= time;
+		}
 	}
 	
 	public PositionedImage render() {
-		// TODO Auto-generated method stub
-		return null;
+		return new PositionedImage(images[currPos], px, py, 5);
 	}
 	
 	public void keyPressed(KeyEvent e) {

@@ -23,7 +23,9 @@ public class Crystal extends StaticEntity {
 		this.py = py;
 		this.pz = pz;
 		try {
-			img = ImageIO.read(new File("img/crystal.png"));
+			img = ImageIO.read(new File("resources/img/gem.png"));
+			this.height = img.getHeight();
+			this.width = img.getWidth();
 		} catch (IOException e) {
 			e.printStackTrace();
 			img = null;

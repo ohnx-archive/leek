@@ -36,9 +36,13 @@ public class Level implements Serializable {
 	public final int width;
 	
 	/* Element lists */
-	protected List<Entity> entityList;
-	protected List<Block> blockList;
+	private List<Entity> entityList;
+	private List<Block> blockList;
 	public final transient EventMaster em;
+	
+	/* Queue for adding new elements */
+	public List<Entity> entityQueue;
+	public List<Block> blockQueue;
 	
 	/**
 	 * Level constructor
@@ -52,6 +56,8 @@ public class Level implements Serializable {
 		width = levelBackground.getWidth();
 		entityList = new ArrayList<Entity>();
 		blockList = new ArrayList<Block>();
+		entityQueue = new ArrayList<Entity>();
+		blockQueue = new ArrayList<Block>();
 		em = new EventMaster();
 	}
 	
@@ -96,6 +102,18 @@ public class Level implements Serializable {
 				((Updateable) e).update(time);
 			}
 		}
+		if (entityQueue.size() > 0) {
+			for (Entity e : entityQueue) {
+				entityList.add(e);
+			}
+			entityQueue.clear();
+		}
+		if (blockQueue.size() > 0) {
+			for (Block e : blockQueue) {
+				blockList.add(e);
+			}
+			blockQueue.clear();
+		}
 	}
 	
 	/**
@@ -103,7 +121,7 @@ public class Level implements Serializable {
 	 * @param e	The entity to add.
 	 */
 	public void add(Entity e) {
-		entityList.add(e);
+		entityQueue.add(e);
 	}
 	
 	/**
@@ -111,7 +129,7 @@ public class Level implements Serializable {
 	 * @param b	The block to add.
 	 */
 	public void add(Block b) {
-		blockList.add(b);
+		blockQueue.add(b);
 	}
 	
 	/**

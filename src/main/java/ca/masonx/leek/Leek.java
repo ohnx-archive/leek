@@ -28,8 +28,8 @@ public class Leek extends LeekEvent {
 	 * @param width			The width of the window.
 	 * @param height		The height of the window.
 	 */
-	public void init(String windowName, int width, int height) {
-		guiHelper.initGUI(windowName, width, height);
+	public void init(String windowName) {
+		guiHelper.initGUI(windowName);
 	}
 	
 	/**
@@ -51,6 +51,7 @@ public class Leek extends LeekEvent {
 		double frameTime;
 		double deltaTime;
 		Graphics g = guiHelper.getGraphics();
+		//Graphics buffer = new Graphics();
 		
 		while (true) {
 			newTime = System.currentTimeMillis();
@@ -74,5 +75,6 @@ public class Leek extends LeekEvent {
 		//TODO: Transition nicely to the next level
 		currLevel = l;
 		guiHelper.setPanelSize(l.width, l.height);
+		guiHelper.setFrameSize(l.width, l.height);
 	}
 }

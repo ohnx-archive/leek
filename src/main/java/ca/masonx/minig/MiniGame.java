@@ -24,10 +24,12 @@ public class MiniGame {
 	}
 	
 	protected void start() {
-		engine.init("Gem Collector", 640, 480);
+		engine.init("Gem Collector");
 		try {
-			Level l = new Level("Level 1", ImageIO.read(new File("background.png")));
+			Level l = new Level("Level 1", ImageIO.read(new File("resources/img/background.png")));
 			l.add((Entity)p);
+			CrystalSpawner cs = new CrystalSpawner(l);
+			l.add((Entity)cs);
 			engine.changeLevel(l);
 			engine.enterMainLoop();
 		} catch (IOException e) {
