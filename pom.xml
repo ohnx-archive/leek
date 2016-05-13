@@ -3,8 +3,11 @@
   
   <groupId>ca.masonx</groupId>
   <artifactId>leek</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.1</version>
   <packaging>jar</packaging>
   
-  <name>Leek</name>
+  <name>leek</name>
+  <properties>
+    <jdk.version>1.8</jdk.version>
+  </properties>
 </project>
