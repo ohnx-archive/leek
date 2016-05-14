@@ -1,6 +1,10 @@
 package ca.masonx.leek;
 
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Panel;
 
 import ca.masonx.leek.core.events.LeekEvent;
 import ca.masonx.leek.core.gameElement.Level;
@@ -45,26 +49,51 @@ public class Leek extends LeekEvent {
 	
 	@SuppressWarnings("unused")
 	protected boolean mainLoop(int targetFPS) {
+		// Variables for use with updating stuff
 		double dt = 1.0 / targetFPS * 1000.0;
-		double currentTime = System.currentTimeMillis();
+		double currentTime;
 		double newTime;
 		double frameTime;
 		double deltaTime;
-		Graphics g = guiHelper.getGraphics();
-		//Graphics buffer = new Graphics();
 		
+		// Double buffering setup
+		Graphics g = guiHelper.getGraphics();
+		Dimension d = guiHelper.getPanelDimensions();
+		Panel p = guiHelper.getPanel();
+		int bufh = d.height;
+		int bufw = d.width;
+
+		// Create the back buffer
+		Image bufferImg = p.createImage(bufh, bufw);
+		Graphics buffer = bufferImg.getGraphics();
+
+		currentTime = System.currentTimeMillis();
+
+		// loop
 		while (true) {
+			// get the delta times and whatnot
 			newTime = System.currentTimeMillis();
 			frameTime = newTime - currentTime;
 			currentTime = newTime;
 			
+			// break down the time chunks into blocks and call update each block
 			while (frameTime > 0.0) {
 				deltaTime = Math.min(frameTime, dt);
 				currLevel.update(deltaTime);
 				frameTime -= deltaTime;
 			}
 			
-		    currLevel.render(g);
+			// render the level to the backbuffer
+		    currLevel.render(buffer);
+		    
+		    // blit backbuffer
+		    g.drawImage(bufferImg, 0, 0, null);
+		    
+		    // clear the backbuffer
+		    buffer.setColor(Color.BLACK);
+		    buffer.fillRect(0, 0, bufw, bufh);
+		    
+		    
 		    if (false)
 		    	break;
 		}

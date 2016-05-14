@@ -1,5 +1,6 @@
 package ca.masonx.leek.core.gui;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Graphics;
@@ -40,7 +41,7 @@ public class LeekGuiHelper {
 			}
 		});
 		mainPanel = new Panel();
-		mainFrame.add(mainPanel);
+		mainFrame.add(mainPanel, BorderLayout.CENTER);
 	    mainFrame.setVisible(true);
 	    mainFrame.pack();
 	}
@@ -53,11 +54,36 @@ public class LeekGuiHelper {
 	 */
 	public void setPanelSize(int width, int height) {
 		mainPanel.setPreferredSize(new Dimension(width, height));
+		mainPanel.setSize(new Dimension(width, height));
 	}
 	
+	/**
+	 * Set the frame size.
+	 * 
+	 * @param width		The width of the frame
+	 * @param height	The height of the frame
+	 */
 	public void setFrameSize(int width, int height) {
-		mainFrame.setPreferredSize(new Dimension(width, height));
+		mainFrame.setSize(new Dimension(width, height));
 		//mainFrame.setResizable(false);
+	}
+	
+	/**
+	 * Get the dimensions of the panel.
+	 * 
+	 * @return	The Dimension of the panel
+	 */
+	public Dimension getPanelDimensions() {
+		return mainPanel.getSize();
+	}
+	
+	/**
+	 * Get the panel.
+	 * 
+	 * @return	The Panel
+	 */
+	public Panel getPanel() {
+		return mainPanel;
 	}
 	
 	/**
