@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Panel;
 
+import ca.masonx.leek.core.events.EventDelegate;
 import ca.masonx.leek.core.events.LeekEvent;
 import ca.masonx.leek.core.gameElement.Level;
 import ca.masonx.leek.core.gui.LeekGuiHelper;
@@ -19,6 +20,11 @@ public class Leek extends LeekEvent {
 	 * GUI helper for Leek
 	 */
 	protected LeekGuiHelper guiHelper;
+	
+	/**
+	 * Event Delegator
+	 */
+	protected EventDelegate ed;
 	
 	/**
 	 * The current level that is being displayed.
@@ -62,7 +68,7 @@ public class Leek extends LeekEvent {
 		Panel p = guiHelper.getPanel();
 		int bufh = d.height;
 		int bufw = d.width;
-
+		
 		// Create the back buffer
 		Image bufferImg = p.createImage(bufh, bufw);
 		Graphics buffer = bufferImg.getGraphics();
@@ -90,9 +96,8 @@ public class Leek extends LeekEvent {
 		    g.drawImage(bufferImg, 0, 0, null);
 		    
 		    // clear the backbuffer
-		    buffer.setColor(Color.BLACK);
+		    buffer.setColor(Color.RED);
 		    buffer.fillRect(0, 0, bufw, bufh);
-		    
 		    
 		    if (false)
 		    	break;
@@ -104,6 +109,6 @@ public class Leek extends LeekEvent {
 		//TODO: Transition nicely to the next level
 		currLevel = l;
 		guiHelper.setPanelSize(l.width, l.height);
-		guiHelper.setFrameSize(l.width, l.height);
+		
 	}
 }

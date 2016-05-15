@@ -21,30 +21,28 @@ public class EventHandlerRegister {
 	 * @param l		The level that the event handler is going to be registered under
 	 * @param in	A class that implements the Listener interface.
 	 */
-	public static void registerEventHandlers(Level l, Listener in) {
+	public static void registerEventHandlers(Level l, Object in) {
 		Class<?> cours = in.getClass();
-		Method[] methods = cours.getMethods();
-		for (Method method : methods) {
-			// if method is annotated with @Test
-			if (method.isAnnotationPresent(LeekEventHandler.class)) {
-				Annotation annotation = method.getAnnotation(LeekEventHandler.class);
-				LeekEventHandler handler = (LeekEventHandler) annotation;
-				switch (handler.handles()) {
-				case COLLISION:
-				case KEYDOWN:
-				case KEYUP:
-				case MOUSECLICK:
-				case MOUSEMOVE:
-					if (l.em.addEventHandler(method, handler.handles())) {
-						
-					} else {
-						System.err.println("Invalid event handler " + method.getName() + " in " + in.getClass().getName());
-					}
-				default:
-					System.err.println("Invalid handling type for: " + method.getName() + " in " + in.getClass().getName());
-					break;
+		if (cours.isAnnotationPresent(LeekEventHandler.class)) {
+			Annotation annotation = cours.getAnnotation(LeekEventHandler.class);
+			LeekEventHandler handler = (LeekEventHandler) annotation;
+			/*
+			switch (handler.handles()) {
+			case COLLISION:
+			case KEYDOWN:
+			case KEYUP:
+			case MOUSECLICK:
+			case MOUSEMOVE:
+				if (l.em.addEventHandler(method, handler.handles())) {
+					
+				} else {
+					System.err.println("Invalid event handler " + method.getName() + " in " + in.getClass().getName());
 				}
-			}
+				break;
+			default:
+				System.err.println("Invalid handling type for: " + method.getName() + " in " + in.getClass().getName());
+				break;
+			}*/
 		}
 	}
 }

@@ -22,7 +22,7 @@ public abstract class LeekEvent {
 		/* switch based on the event type */
 		switch (ht) {
 		case COLLISION:
-			if (pt[0] == CollisionEvent.class) return true;
+			if (pt[0].getCanonicalName().equals(CollisionEvent.class.getCanonicalName())) return true;
 			break;
 		case KEYDOWN:
 			if (pt[0] == KeyDownEvent.class) return true;

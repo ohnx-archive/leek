@@ -1,15 +1,16 @@
 package ca.masonx.leek.core.events;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 
 public class EventMaster {
 	/* All of the events and their catchers */
-	List<Method> keyDown;
-	List<Method> keyUp;
-	List<Method> collision;
-	List<Method> mouseMove;
-	List<Method> mouseClick;
+	List<Method> keyDown = new ArrayList<Method>();
+	List<Method> keyUp = new ArrayList<Method>();
+	List<Method> collision = new ArrayList<Method>();
+	List<Method> mouseMove = new ArrayList<Method>();
+	List<Method> mouseClick = new ArrayList<Method>();
 	
 	/**
 	 * Add event handler.
@@ -38,7 +39,7 @@ public class EventMaster {
 				break;
 			case NONE:
 			default:
-				break;
+				return false;
 			}
 			return true;
 		}
