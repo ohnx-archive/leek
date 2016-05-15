@@ -1,9 +1,5 @@
 package ca.masonx.leek.core.events;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Method;
-
-import ca.masonx.leek.Leek;
 import ca.masonx.leek.core.annotations.LeekEventHandler;
 import ca.masonx.leek.core.gameElement.Level;
 
@@ -21,28 +17,23 @@ public class EventHandlerRegister {
 	 * @param l		The level that the event handler is going to be registered under
 	 * @param in	A class that implements the Listener interface.
 	 */
+	@SuppressWarnings("rawtypes")
 	public static void registerEventHandlers(Level l, Object in) {
 		Class<?> cours = in.getClass();
 		if (cours.isAnnotationPresent(LeekEventHandler.class)) {
-			Annotation annotation = cours.getAnnotation(LeekEventHandler.class);
-			LeekEventHandler handler = (LeekEventHandler) annotation;
-			/*
-			switch (handler.handles()) {
-			case COLLISION:
-			case KEYDOWN:
-			case KEYUP:
-			case MOUSECLICK:
-			case MOUSEMOVE:
-				if (l.em.addEventHandler(method, handler.handles())) {
-					
-				} else {
-					System.err.println("Invalid event handler " + method.getName() + " in " + in.getClass().getName());
+			/* get the interfaces so we can see what the class is hooking */
+			Class[] interfaces = cours.getInterfaces();
+			/* loop through all the interfaces */
+			for (Class i : interfaces) {
+				if (i.getName().equalsIgnoreCase("java.awt.event.KeyListener") ||
+					i.getName().equalsIgnoreCase("java.awt.event.MouseListener") ||
+					i.getName().equalsIgnoreCase("java.awt.event.MouseMotionListener") ||
+					i.getName().equalsIgnoreCase("ca.masonx.leek.core.CollisionListener")) {
+					l.em.addEventHandler(in);
+					return;
 				}
-				break;
-			default:
-				System.err.println("Invalid handling type for: " + method.getName() + " in " + in.getClass().getName());
-				break;
-			}*/
+			}
+			System.err.println(in.getClass().getName() + " is not a valid event handler!");
 		}
 	}
 }

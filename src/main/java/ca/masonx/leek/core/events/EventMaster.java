@@ -1,48 +1,46 @@
 package ca.masonx.leek.core.events;
 
-import java.lang.reflect.Method;
+import java.awt.Panel;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * EventMaster.
+ * 
+ * Acts as the Event Master for a level.
+ * Called to add event listeners, and 
+ */
 public class EventMaster {
-	/* All of the events and their catchers */
-	List<Method> keyDown = new ArrayList<Method>();
-	List<Method> keyUp = new ArrayList<Method>();
-	List<Method> collision = new ArrayList<Method>();
-	List<Method> mouseMove = new ArrayList<Method>();
-	List<Method> mouseClick = new ArrayList<Method>();
+	/**
+	 * Event listeners.
+	 */
+	protected List<Object> eventListeners = new ArrayList<Object>();
 	
 	/**
-	 * Add event handler.
 	 * 
-	 * @param m		Method that is being registered
-	 * @param et	Type that is being handled
-	 * @return		Returns true on success, false on failure
+	 * @param o
 	 */
-	public boolean addEventHandler(Method m, HandlerType et) {
-		if (LeekEvent.checkValidEventHandler(m, et)) {
-			switch (et) {
-			case COLLISION:
-				collision.add(m);
-				break;
-			case KEYDOWN:
-				keyDown.add(m);
-				break;
-			case KEYUP:
-				keyUp.add(m);
-				break;
-			case MOUSECLICK:
-				mouseClick.add(m);
-				break;
-			case MOUSEMOVE:
-				mouseMove.add(m);
-				break;
-			case NONE:
-			default:
-				return false;
-			}
-			return true;
+	public void addEventHandler(Object o) {
+		eventListeners.add(o);
+	}
+	
+	public void registerEventHandlers(Panel p) {
+		for (Object o : eventListeners) {
+			try {
+				p.addKeyListener((KeyListener) o);
+			} catch (ClassCastException e) {}
+			try {
+				p.addMouseMotionListener((MouseMotionListener) o);
+			} catch (ClassCastException e) {}
+			try {
+				p.addMouseListener((MouseListener) o);
+			} catch (ClassCastException e) {}
+			/*try {
+				CollisionListener.
+			} catch (ClassCastException e) {}*/
 		}
-		return false;
 	}
 }

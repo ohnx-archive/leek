@@ -5,20 +5,12 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import ca.masonx.leek.core.events.HandlerPriority;
-import ca.masonx.leek.core.events.HandlerType;
-
 /**
  * Event Handler annotation.
- * Sample usage: @LeekEventHandler.
+ * Tells the game engine that a class is an event handler.
  * 
- * Handler type what kind of event the method handles.
- * Priority is used to decide which handler gets called first.
- * Higher priority = called first, lower priority = called after.
+ * Sample usage: @LeekEventHandler.
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE) /* only for methods */
-public @interface LeekEventHandler {
-	//HandlerType handles() default HandlerType.NONE;
-	HandlerPriority priority() default HandlerPriority.MEDIUM;
-}
+@Target(ElementType.TYPE) /* only for classes */
+public @interface LeekEventHandler {}
