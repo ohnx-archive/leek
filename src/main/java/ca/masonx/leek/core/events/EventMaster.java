@@ -1,6 +1,6 @@
 package ca.masonx.leek.core.events;
 
-import java.awt.Frame;
+import java.awt.Panel;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -15,14 +15,14 @@ import ca.masonx.leek.core.world.Level;
  * EventMaster.
  * 
  * Acts as the Event Master for a level.
- * Called to add event listeners, and 
+ * Called to add event listeners, and to remove them.
  */
 public class EventMaster {
 	/**
 	 * Event listeners.
 	 */
 	protected List<Object> eventListeners = new ArrayList<Object>();
-	private Frame parentFrame;
+	private Panel parentPanel;
 	
 	/**
 	 * Parent level.
@@ -49,27 +49,33 @@ public class EventMaster {
 	 * 
 	 * @param f
 	 */
-	public void registerEventHandlers(Frame f) {
-		parentFrame = f;
+	public int registerEventHandlers(Panel p) {
+		parentPanel = p;
+		int count = 0;
 		for (Object o : eventListeners) {
 			if (o instanceof KeyListener) {
-				f.addKeyListener((KeyListener) o);
+				p.addKeyListener((KeyListener) o);
+				count++;
 			}
 			if (o instanceof MouseMotionListener) {
-				f.addMouseMotionListener((MouseMotionListener) o);
+				p.addMouseMotionListener((MouseMotionListener) o);
+				count++;
 			}
 			if (o instanceof MouseListener) {
-				f.addMouseListener((MouseListener) o);
+				p.addMouseListener((MouseListener) o);
+				count++;
 			}
 			if (o instanceof CollisionListener) {
 				if (o instanceof GameElement) {
 					parent.cem.addCollisionListener((GameElement) o);
+					count++;
 				} else {
 					System.err.println(o.getClass().getName() +
 					" is not a game element yet tried to register for collision events! Ignoring.");
 				}
 			}
 		}
+		return count;
 	}
 	
 	/**
@@ -78,13 +84,13 @@ public class EventMaster {
 	 */
 	public void removeEventHandlers(EventListener o) {
 		if (o instanceof KeyListener) {
-			parentFrame.removeKeyListener((KeyListener) o);
+			parentPanel.removeKeyListener((KeyListener) o);
 		}
 		if (o instanceof MouseMotionListener) {
-			parentFrame.removeMouseMotionListener((MouseMotionListener) o);
+			parentPanel.removeMouseMotionListener((MouseMotionListener) o);
 		}
 		if (o instanceof MouseListener) {
-			parentFrame.removeMouseListener((MouseListener) o);
+			parentPanel.removeMouseListener((MouseListener) o);
 		}
 		if (o instanceof CollisionListener) {
 			if (o instanceof GameElement) {

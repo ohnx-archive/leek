@@ -17,16 +17,29 @@ import ca.masonx.leek.core.world.Level;
  */
 public class Leek {
 	/**
-	 * GUI helper for Leek
+	 * GUI helper for Leek.
 	 */
 	protected LeekGuiHelper guiHelper;
 	
+	/**
+	 * Manager for collision events.
+	 */
 	protected CollisionEventManager cem;
 	
 	/**
 	 * The current level that is being displayed.
 	 */
-	protected Level currLevel;
+	protected Level currLevel = null;
+	
+	/**
+	 * Whether or not the level should change.
+	 */
+	protected boolean shouldChangeLevel = false;
+	
+	/**
+	 * The level to change to, if it should change levels.
+	 */
+	protected Level toChange;
 	
 	/**
 	 * The location of the window on the screen.
@@ -126,6 +139,31 @@ public class Leek {
 			// Check collisions
 			CollisionChecker.checkCollisions(currLevel);
 			
+			// Check if anything has requested a level change
+			if (shouldChangeLevel) {
+				// dispose of this current level
+				currLevel.dispose();
+				// switch to the new one
+				currLevel = toChange;
+				// re-setup everything
+				guiHelper.setPanelSize(toChange.width, toChange.height);
+				currLevel.em.registerEventHandlers(guiHelper.getPanel());
+				if (wl == WindowLocation.CENTER) {
+					guiHelper.centerFrame();
+				}
+				// Recreate all the variables
+				d = guiHelper.getPanelDimensions();
+				bufh = d.height;
+				bufw = d.width;
+				
+				// recreate the back buffer
+				bufferImg = p.createImage(bufw, bufh);
+				buffer = bufferImg.getGraphics();
+				shouldChangeLevel = false;
+				// skip this render
+				continue;
+			}
+			
 			// render the level to the backbuffer
 		    currLevel.render(buffer);
 		    
@@ -143,19 +181,33 @@ public class Leek {
 	}
 	
 	/**
-	 * Change the level.
+	 * Load the initial level.
 	 * 
-	 * @param l	Level to change to.
+	 * @param l	Level to load.
 	 */
-	public void changeLevel(Level l) {
-		//TODO: Transition nicely to the next level
-		if (currLevel != null) currLevel.dispose();
-		currLevel = l;
-		guiHelper.setPanelSize(l.width, l.height);
-		l.em.registerEventHandlers(guiHelper.getFrame());
-		if (wl == WindowLocation.CENTER) {
-			guiHelper.centerFrame();
+	public void loadInitialLevel(Level l) {
+		if (currLevel == null) {
+			currLevel = l;
+			guiHelper.setPanelSize(l.width, l.height);
+			l.em.registerEventHandlers(guiHelper.getPanel());
+			if (wl == WindowLocation.CENTER) {
+				guiHelper.centerFrame();
+			}
 		}
+	}
+	
+	/**
+	 * Request to change the level.
+	 * 
+	 * @param l	The level to change to.
+	 */
+	public void requestChangeLevel(Level l) {
+		if (currLevel == null) {
+			loadInitialLevel(l);
+			return;
+		}
+		shouldChangeLevel = true;
+		toChange = l;
 	}
 	
 	public enum WindowLocation {

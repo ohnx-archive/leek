@@ -14,6 +14,8 @@ import java.awt.event.WindowEvent;
  * Leek GUI Helper.
  * 
  * Initializes AWT and gets contexts to draw on and whatnot.
+ * 
+ * Recommended internal use only.
  */
 public class LeekGuiHelper {
 	/**
@@ -55,6 +57,11 @@ public class LeekGuiHelper {
 	    
 	    mainFrame.setResizable(false);
 	    
+	    // give the focus to the panel automatically
+	    // so that the user doesn't have to manually click on it
+	    mainPanel.setFocusable(true);
+	    mainPanel.requestFocus();
+	    
 	    // show the main frame
 	    mainFrame.setVisible(true);
 	}
@@ -71,6 +78,7 @@ public class LeekGuiHelper {
 	 */
 	public void setPanelSize(int width, int height) {
 		mainPanel.setPreferredSize(new Dimension(width, height));
+		mainPanel.setSize(new Dimension(width, height));
 		mainFrame.pack();
 	}
 	

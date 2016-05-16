@@ -15,7 +15,7 @@ public class EventHandlerRegister {
 	 * Sample usage (assuming called from a class that implements Listener): registerEventHandlers(this).
 	 * 
 	 * @param l		The level that the event handler is going to be registered under
-	 * @param in	A class that implements the Listener interface.
+	 * @param in	A class that wants to be notified of events.
 	 */
 	@SuppressWarnings("rawtypes")
 	public static void registerEventHandlers(Level l, Object in) {
