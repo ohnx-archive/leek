@@ -6,8 +6,10 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Panel;
 
-import ca.masonx.leek.core.gameElement.Level;
+import ca.masonx.leek.core.events.CollisionEventManager;
 import ca.masonx.leek.core.gui.LeekGuiHelper;
+import ca.masonx.leek.core.physics.CollisionChecker;
+import ca.masonx.leek.core.world.Level;
 
 /**
  * Leek main class.
@@ -18,6 +20,8 @@ public class Leek {
 	 * GUI helper for Leek
 	 */
 	protected LeekGuiHelper guiHelper;
+	
+	protected CollisionEventManager cem;
 	
 	/**
 	 * The current level that is being displayed.
@@ -81,6 +85,9 @@ public class Leek {
 				currLevel.update(deltaTime);
 				frameTime -= deltaTime;
 			}
+			
+			// Check collisions
+			CollisionChecker.checkCollisions(currLevel);
 			
 			// render the level to the backbuffer
 		    currLevel.render(buffer);

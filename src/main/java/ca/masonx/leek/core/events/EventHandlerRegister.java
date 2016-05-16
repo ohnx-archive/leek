@@ -1,7 +1,7 @@
 package ca.masonx.leek.core.events;
 
 import ca.masonx.leek.core.annotations.LeekEventHandler;
-import ca.masonx.leek.core.gameElement.Level;
+import ca.masonx.leek.core.world.Level;
 
 /**
  * Event Handler Registerer.
@@ -33,7 +33,7 @@ public class EventHandlerRegister {
 					return;
 				}
 			}
-			System.err.println(in.getClass().getName() + " is not a valid event handler!");
+			System.err.println(in.getClass().getName() + " is not a valid event handler! Ignoring.");
 		}
 	}
 }

@@ -49,8 +49,10 @@ public class LeekGuiHelper {
 		mainFrame.add(mainPanel, BorderLayout.CENTER);
 	    
 	    // debug
-	    mainFrame.setBackground(Color.GREEN);
-	    mainPanel.setBackground(Color.PINK);
+	    mainFrame.setBackground(Color.BLACK);
+	    mainPanel.setBackground(Color.BLACK);
+	    
+	    mainFrame.setResizable(false);
 	    
 	    // show the main frame
 	    mainFrame.setVisible(true);

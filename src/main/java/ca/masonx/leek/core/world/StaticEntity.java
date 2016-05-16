@@ -1,4 +1,4 @@
-package ca.masonx.leek.core.gameElement;
+package ca.masonx.leek.core.world;
 
 
 /**
