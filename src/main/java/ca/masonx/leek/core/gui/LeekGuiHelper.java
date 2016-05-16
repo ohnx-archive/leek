@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Panel;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -58,6 +59,10 @@ public class LeekGuiHelper {
 	    mainFrame.setVisible(true);
 	}
 	
+	public void setFrameIcon(Image frameIcon) {
+		mainFrame.setIconImage(frameIcon);
+	}
+	
 	/**
 	 * Set the panel size.
 	 * 
@@ -67,6 +72,13 @@ public class LeekGuiHelper {
 	public void setPanelSize(int width, int height) {
 		mainPanel.setPreferredSize(new Dimension(width, height));
 		mainFrame.pack();
+	}
+	
+	/**
+	 * Center the frame.
+	 */
+	public void centerFrame() {
+		mainFrame.setLocationRelativeTo(null);
 	}
 	
 	/**
@@ -85,6 +97,15 @@ public class LeekGuiHelper {
 	 */
 	public Panel getPanel() {
 		return mainPanel;
+	}
+	
+	/**
+	 * Get the frame.
+	 * 
+	 * @return	The Frame
+	 */
+	public Frame getFrame() {
+		return mainFrame;
 	}
 	
 	/**

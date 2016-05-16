@@ -29,14 +29,48 @@ public class Leek {
 	protected Level currLevel;
 	
 	/**
+	 * The location of the window on the screen.
+	 */
+	protected WindowLocation wl;
+	
+	/**
 	 * Initialization functions for Leek.
+	 * Uses only the window name, and the window
+	 * will be in the top left.
 	 * 
 	 * @param windowName	The name of the window.
-	 * @param width			The width of the window.
-	 * @param height		The height of the window.
 	 */
 	public void init(String windowName) {
 		guiHelper.initGUI(windowName);
+		wl = WindowLocation.CENTER;
+	}
+	
+	/**
+	 * Initialization functions for Leek.
+	 * Allows the user to specify where the window
+	 * should be on the screen.
+	 * 
+	 * @param windowName	The name of the window.
+	 * @param windowLocation	Where the window is on the screen.
+	 */
+	public void init(String windowName, WindowLocation windowLocation) {
+		guiHelper.initGUI(windowName);
+		wl = windowLocation;
+	}
+	
+	/**
+	 * Initialization functions for Leek.
+	 * Allows the user to specify where the window
+	 * should be on the screen.
+	 * 
+	 * @param windowName	The name of the window.
+	 * @param windowLocation	Where the window is on the screen.
+	 * @param windowIcon	The icon of the window.
+	 */
+	public void init(String windowName, WindowLocation windowLocation, Image windowIcon) {
+		guiHelper.initGUI(windowName);
+		wl = windowLocation;
+		guiHelper.setFrameIcon(windowIcon);
 	}
 	
 	/**
@@ -81,8 +115,11 @@ public class Leek {
 			
 			// break down the time chunks into blocks and call update each block
 			while (frameTime > 0.0) {
+				// get the smaller one between dt (aka max frame size vs remaining frame size)
 				deltaTime = Math.min(frameTime, dt);
+				// update the level based on that
 				currLevel.update(deltaTime);
+				// subtract frame time by the time that was updated
 				frameTime -= deltaTime;
 			}
 			
@@ -112,8 +149,17 @@ public class Leek {
 	 */
 	public void changeLevel(Level l) {
 		//TODO: Transition nicely to the next level
+		if (currLevel != null) currLevel.dispose();
 		currLevel = l;
 		guiHelper.setPanelSize(l.width, l.height);
-		l.em.registerEventHandlers(guiHelper.getPanel());
+		l.em.registerEventHandlers(guiHelper.getFrame());
+		if (wl == WindowLocation.CENTER) {
+			guiHelper.centerFrame();
+		}
+	}
+	
+	public enum WindowLocation {
+		CENTER,
+		TOPLEFT
 	}
 }

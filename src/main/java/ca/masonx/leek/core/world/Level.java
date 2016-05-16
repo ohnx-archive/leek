@@ -158,6 +158,31 @@ public class Level implements Serializable {
 	}
 	
 	/**
+	 * Dispose of the level.
+	 * 
+	 * Call when switching levels to unload all the entities and whatnot,
+	 * and to unregister the event handlers.
+	 */
+	public void dispose() {
+		/* entity queue */
+		for (Entity e : entityList) {
+			/* need to also unregister all event listeners */
+			if (e instanceof EventListener) {
+				em.removeEventHandlers((EventListener)e);
+			}
+		}
+		
+		/* clear all the event handlers */
+		entityList.clear();
+		blockList.clear();
+		entityQueue.clear();
+		blockQueue.clear();
+		entityRemoval.clear();
+		blockRemoval.clear();
+		specials.clear();
+	}
+	
+	/**
 	 * Add an entity to the level.
 	 * @param e	The entity to add.
 	 */

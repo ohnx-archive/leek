@@ -1,6 +1,6 @@
 package ca.masonx.leek.core.events;
 
-import java.awt.Panel;
+import java.awt.Frame;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -22,7 +22,7 @@ public class EventMaster {
 	 * Event listeners.
 	 */
 	protected List<Object> eventListeners = new ArrayList<Object>();
-	private Panel parentPanel;
+	private Frame parentFrame;
 	
 	/**
 	 * Parent level.
@@ -47,19 +47,19 @@ public class EventMaster {
 	
 	/**
 	 * 
-	 * @param p
+	 * @param f
 	 */
-	public void registerEventHandlers(Panel p) {
-		parentPanel = p;
+	public void registerEventHandlers(Frame f) {
+		parentFrame = f;
 		for (Object o : eventListeners) {
 			if (o instanceof KeyListener) {
-				p.addKeyListener((KeyListener) o);
+				f.addKeyListener((KeyListener) o);
 			}
 			if (o instanceof MouseMotionListener) {
-				p.addMouseMotionListener((MouseMotionListener) o);
+				f.addMouseMotionListener((MouseMotionListener) o);
 			}
 			if (o instanceof MouseListener) {
-				p.addMouseListener((MouseListener) o);
+				f.addMouseListener((MouseListener) o);
 			}
 			if (o instanceof CollisionListener) {
 				if (o instanceof GameElement) {
@@ -72,15 +72,19 @@ public class EventMaster {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param o
+	 */
 	public void removeEventHandlers(EventListener o) {
 		if (o instanceof KeyListener) {
-			parentPanel.removeKeyListener((KeyListener) o);
+			parentFrame.removeKeyListener((KeyListener) o);
 		}
 		if (o instanceof MouseMotionListener) {
-			parentPanel.removeMouseMotionListener((MouseMotionListener) o);
+			parentFrame.removeMouseMotionListener((MouseMotionListener) o);
 		}
 		if (o instanceof MouseListener) {
-			parentPanel.removeMouseListener((MouseListener) o);
+			parentFrame.removeMouseListener((MouseListener) o);
 		}
 		if (o instanceof CollisionListener) {
 			if (o instanceof GameElement) {
