@@ -3,7 +3,7 @@ package ca.masonx.leek.core.world;
 import ca.masonx.leek.core.physics.Updateable;
 
 /**
- * Movable Entity abstract class
+ * Movable Entity abstract class.
  * 
  * Movable Entities are entities that can move.
  */

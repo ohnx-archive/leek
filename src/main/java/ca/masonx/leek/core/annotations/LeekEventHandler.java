@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
  * Event Handler annotation.
  * Tells the game engine that a class is an event handler.
  * 
- * Sample usage: @LeekEventHandler.
+ * Sample usage: @LeekEventHandler
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE) /* only for classes */

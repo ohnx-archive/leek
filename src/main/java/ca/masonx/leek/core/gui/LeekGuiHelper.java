@@ -19,7 +19,7 @@ import java.awt.event.WindowEvent;
  */
 public class LeekGuiHelper {
 	/**
-	 * The main frame/window that is getting drawn to.
+	 * The main frame/window that contains the panel.
 	 */
 	private Frame mainFrame;
 	
@@ -31,9 +31,7 @@ public class LeekGuiHelper {
 	/**
 	 * Initialize the GUI.
 	 * 
-	 * @param title	The title of the window
-	 * @param width	The width of the window
-	 * @param height	The height of the window
+	 * @param title	The title of the window.
 	 */
 	public void initGUI(String title) {
 		mainFrame = new Frame(title);

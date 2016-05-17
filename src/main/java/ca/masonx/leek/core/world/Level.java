@@ -22,7 +22,8 @@ import ca.masonx.leek.core.render.SpecialRenderer;
 
 /**
  * Class for a level - most functionality is already implemented.
- * Extending this class is not necessary.
+ * 
+ * Extending this class is not necessary, but you still can do this if you want to.
  */
 public class Level implements Serializable {
 	/**
@@ -82,7 +83,6 @@ public class Level implements Serializable {
 	/**
 	 * Render the level using a simple Painter's algorithm.
 	 * 
-	 * <b>Internal use only</b>
 	 * @param g	The Graphics context to draw on
 	 */
 	public void render(Graphics g) {
@@ -120,7 +120,6 @@ public class Level implements Serializable {
 	/**
 	 * Update the level.
 	 * 
-	 * <b>Internal use only</b>
 	 * @param time the amount of time that has passed since the level last got updated
 	 */
 	public void update(double time) {

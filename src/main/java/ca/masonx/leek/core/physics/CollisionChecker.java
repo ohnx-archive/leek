@@ -12,11 +12,14 @@ public class CollisionChecker {
 	/**
 	 * Check the collisions in a level and then notify
 	 * whoever wants to know about collisions.
-	 * <b>Internal use only</b>
-	 * @param l	The level to check collisions in
+	 * 
+	 * @param l	The level to check collisions in.
 	 */
 	public static void checkCollisions(Level l) {
+		// get list of subscribers
 		List<GameElement> checkList = l.cem.getSubscribers();
+		
+		// loop through list
 		for (GameElement e : checkList) {
 			Rectangle r = e.getBounds();
 			/* Check intersections with the entities.
@@ -41,7 +44,7 @@ public class CollisionChecker {
 	 */
 	public static boolean canMoveHere(Level l, int xpos, int ypos, int height, int width) {
 		Rectangle r = new Rectangle(xpos, ypos, width, height);
-		/* Check all the Blocks in a level */
+		// Check all the Blocks in a level
 		for (Block b : l.getBlockList()) {
 			if (r.intersects(b.getBounds())) {
 				return false;

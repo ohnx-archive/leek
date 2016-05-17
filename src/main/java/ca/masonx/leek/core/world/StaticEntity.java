@@ -2,8 +2,8 @@ package ca.masonx.leek.core.world;
 
 
 /**
- * Static Entity abstract class
- * Static Entities are entities that do not move but still will interact with the player
+ * Static Entity abstract class.
+ * Static Entities are entities that do not move but still will interact with the player.
  */
 public abstract class StaticEntity extends Entity {
 	/**

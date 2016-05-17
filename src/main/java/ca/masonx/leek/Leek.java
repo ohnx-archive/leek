@@ -93,6 +93,11 @@ public class Leek {
 		guiHelper = new LeekGuiHelper();
 	}
 	
+	/**
+	 * Enter the main game loop.
+	 * 
+	 * @return	Nothing.
+	 */
 	public boolean enterMainLoop() {
 		return mainLoop(30);
 	}
@@ -160,6 +165,7 @@ public class Leek {
 				bufferImg = p.createImage(bufw, bufh);
 				buffer = bufferImg.getGraphics();
 				shouldChangeLevel = false;
+				
 				// skip this render
 				continue;
 			}
@@ -185,7 +191,7 @@ public class Leek {
 	 * 
 	 * @param l	Level to load.
 	 */
-	public void loadInitialLevel(Level l) {
+	protected void loadInitialLevel(Level l) {
 		if (currLevel == null) {
 			currLevel = l;
 			guiHelper.setPanelSize(l.width, l.height);
@@ -203,9 +209,11 @@ public class Leek {
 	 */
 	public void requestChangeLevel(Level l) {
 		if (currLevel == null) {
+			// if this is first level, load it
 			loadInitialLevel(l);
 			return;
 		}
+		// otherwise, just notify the main loop that it should change the level
 		shouldChangeLevel = true;
 		toChange = l;
 	}

@@ -21,7 +21,7 @@ public class EventMaster {
 	/**
 	 * Event listeners.
 	 */
-	protected List<Object> eventListeners = new ArrayList<Object>();
+	protected List<EventListener> eventListeners = new ArrayList<EventListener>();
 	private Panel parentPanel;
 	
 	/**
@@ -38,49 +38,49 @@ public class EventMaster {
 	}
 	
 	/**
+	 * Add an event handler.
 	 * 
-	 * @param o
+	 * After adding the event handler,
+	 * registerEventHandlers() must be run.
+	 * 
+	 * @param o The EventListener to add.
 	 */
-	public void addEventHandler(Object o) {
+	public void addEventHandler(EventListener o) {
 		eventListeners.add(o);
 	}
 	
 	/**
+	 * Register the events to a panel.
 	 * 
-	 * @param f
+	 * @param p	The panel to register events to.
 	 */
-	public int registerEventHandlers(Panel p) {
+	public void registerEventHandlers(Panel p) {
 		parentPanel = p;
-		int count = 0;
 		for (Object o : eventListeners) {
 			if (o instanceof KeyListener) {
 				p.addKeyListener((KeyListener) o);
-				count++;
 			}
 			if (o instanceof MouseMotionListener) {
 				p.addMouseMotionListener((MouseMotionListener) o);
-				count++;
 			}
 			if (o instanceof MouseListener) {
 				p.addMouseListener((MouseListener) o);
-				count++;
 			}
 			if (o instanceof CollisionListener) {
 				if (o instanceof GameElement) {
 					parent.cem.addCollisionListener((GameElement) o);
-					count++;
 				} else {
 					System.err.println(o.getClass().getName() +
 					" is not a game element yet tried to register for collision events! Ignoring.");
 				}
 			}
 		}
-		return count;
 	}
 	
 	/**
+	 * Remove the event handlers for a given EventListener from the panel.
 	 * 
-	 * @param o
+	 * @param o	The EventListener that will have its listeners removed.
 	 */
 	public void removeEventHandlers(EventListener o) {
 		if (o instanceof KeyListener) {
@@ -97,5 +97,6 @@ public class EventMaster {
 				parent.cem.removeCollisionListener((GameElement) o);
 			}
 		}
+		eventListeners.remove(o);
 	}
 }
