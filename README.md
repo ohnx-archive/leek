@@ -2,4 +2,4 @@
 
 leek is a simple 2D Java game engine that uses AWT.
 
-This is the experimental OpenGL fork. It is very likely that this fork does not work right now.
+This is the experimental OpenGL fork using [jogl](http://jogamp.org/jogl/www/). It is very likely that this fork does not work right now.
